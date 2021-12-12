@@ -23,6 +23,9 @@ docker rmi $(docker images -q)
 // 列出所有的容器 ID
 docker ps -aq
 
+// 列出所有的容器
+docker ps
+
 // 运行容器
 docker run -d -p 8000:8000 --name [容器名] [要运行的镜像名]
 
