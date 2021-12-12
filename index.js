@@ -4,6 +4,7 @@ const http = require('http')
 const secret = require('./secret.json')
 
 
+
 //构建一个阿里云客户端, 用于发起请求。
 //构建阿里云客户端时，需要设置AccessKey ID和AccessKey Secret。
 var client = new Core({
