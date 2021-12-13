@@ -3,8 +3,6 @@ const requestIp = require('request-ip')
 const http = require('http')
 const secret = require('./secret.json')
 
-
-
 //构建一个阿里云客户端, 用于发起请求。
 //构建阿里云客户端时，需要设置AccessKey ID和AccessKey Secret。
 var client = new Core({
@@ -39,10 +37,14 @@ async function getAuthToken () {
 // http server
 http.createServer(async (req, res) => {
   res.writeHead(200, { 'Content-Type': 'application/json' })
-  res.end(JSON.stringify({
-    data: {
-      ip: requestIp.getClientIp(req),
-      token: await getAuthToken()
-    }
-  }))
+
+  if (!secret.ip.includes(requestIp.getClientIp(req))) {
+    return res.end(JSON.stringify( { message: '暂时没有权限' }))
+  }
+
+  try {
+    return res.end(JSON.stringify({ ip: requestIp.getClientIp(req), tokens: await getAuthToken() }))
+  } catch (error) {
+    return res.end(JSON.stringify( { message: error.message }))
+  }
 }).listen(8000)
