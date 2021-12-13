@@ -48,3 +48,13 @@ docker rm $(docker ps -aq)
 // 删除缓存
 docker system prune --volumes
 ```
+
+## Linux
+
+```sh
+// 强制递归删除目录
+ rm -rf [目录名]
+
+ // 强制删除文件
+ rm -f [文件名]
+```

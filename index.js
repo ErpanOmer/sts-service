@@ -1,6 +1,7 @@
 const Core = require('@alicloud/pop-core')
 const requestIp = require('request-ip')
 const http = require('http')
+const url = require('url')
 const secret = require('./secret.json')
 
 //构建一个阿里云客户端, 用于发起请求。
@@ -12,7 +13,7 @@ var client = new Core({
   apiVersion: secret.apiVersion
 })
 
-async function getAuthToken () {
+async function getAuthorizationToken () {
   //设置参数。关于参数含义和设置方法，请参见《API参考》。
   const params = {
     RegionId: secret.RegionId,
@@ -36,14 +37,25 @@ async function getAuthToken () {
 
 // http server
 http.createServer(async (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' })
+  // not get
+  if (req.method !== 'GET') {
+    return res.writeHead(403).end('Request error')
+  }
 
-  if (!secret.ip.includes(requestIp.getClientIp(req))) {
-    return res.end(JSON.stringify( { message: '暂时没有权限' }))
+  // 200
+  res.writeHead(200, { 'Content-Type': 'application/json' })
+  // get mac
+  const mac = req.url.substring(1)
+  // not authorization mac
+  if (!secret.macs.includes(mac)) {
+    return res.end(JSON.stringify( { message: 'You don’t have authorization' }))
   }
 
   try {
-    return res.end(JSON.stringify({ ip: requestIp.getClientIp(req), tokens: await getAuthToken() }))
+    return res.end(JSON.stringify({ 
+      ip: requestIp.getClientIp(req), 
+      tokens: await getAuthorizationToken()
+    }))
   } catch (error) {
     return res.end(JSON.stringify( { message: error.message }))
   }
