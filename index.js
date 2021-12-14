@@ -52,10 +52,7 @@ http.createServer(async (req, res) => {
   }
 
   try {
-    return res.end(JSON.stringify({ 
-      ip: requestIp.getClientIp(req), 
-      tokens: await getAuthorizationToken()
-    }))
+    return res.end(JSON.stringify( ...await getAuthorizationToken() ))
   } catch (error) {
     return res.end(JSON.stringify( { message: error.message }))
   }
