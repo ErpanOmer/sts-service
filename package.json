@@ -12,10 +12,6 @@
   "author": "ErpanOmer",
   "license": "ISC",
   "dependencies": {
-    "@alicloud/pop-core": "^1.7.10",
-    "request-ip": "^2.1.3"
-  },
-  "devDependencies": {
-    "getmac": "^5.20.0"
+    "@alicloud/pop-core": "^1.7.10"
   }
 }

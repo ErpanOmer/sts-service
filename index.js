@@ -1,7 +1,5 @@
 const Core = require('@alicloud/pop-core')
-const requestIp = require('request-ip')
 const http = require('http')
-const url = require('url')
 const secret = require('./secret.json')
 
 //构建一个阿里云客户端, 用于发起请求。
