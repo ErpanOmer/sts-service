@@ -5,9 +5,9 @@ RUN npm config -g set registry https://registry.npm.taobao.org
 
 WORKDIR /service
 
-ADD package.json .
-ADD index.js .
-ADD secret.json .
+COPY package.json .
+COPY index.js .
+COPY secret.json .
 
 RUN npm i
 

@@ -124,3 +124,15 @@ pm2 reload all
 # 关闭并删除所有 node 进程
 $ pm2 delete all
 ```
+
+## Git Commmit
+
+- feat：新功能
+- fix：修补 bug
+- docs：仅文档的改动
+- style：代码格式的改动，不影响代码运行的变动。
+- refactor：重构，即不是新增功能，也不是修改bug的代码变动
+- perf：性能优化
+- test： 增加测试
+- build：构建过程
+- chore: 不修改源代码的杂项变动
